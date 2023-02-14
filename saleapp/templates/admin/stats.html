@@ -1,0 +1,130 @@
+{% extends 'admin/base.html' %}
+
+{% block body %}
+<h1 class="text-center"> THONG KE DOANH THU </h1>
+<div class="row">
+    <div class="col-md-5 col-xs-12">
+        <table class="table">
+            <tr>
+                <th>Ma SP</th>
+                <th> Tên Sp </th>
+                <th> Doanh Thu </th>
+            </tr>
+
+            {% for s in stats %}
+            <tr>
+                <td>{{ s[0] }}</td>
+                <td>{{ s[1] }}</td>
+                <td>
+                    {% if s[2] %}
+                {{ "{:,.0f}".format(s[2]) }} VND
+                {% else %}
+                0 VND
+                </td>
+
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-md-5 col-xs-12">
+        <form>
+            <div class="form-group">
+                <input type="text" class="form-control" name="kw" placeholder="Nhap san pham muon tim"/>
+                <input type="date" class="form-control" name="from_date"/>
+                <input type="date" class="form-control" name="to_date" />
+            </div>
+            <input type="submit" value="thong ke" class="btn btn-info"/>
+
+        </form>
+        <canvas id="ProductchartId" ></canvas>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5 col-xs-12">
+        <table class="table">
+            <tr>
+                <th>Thang</th>
+                <th>Doanh Thu </th>
+            </tr>
+            {% for s in month_stats %}
+            <tr>
+                <td>{{s[0]}}</td>
+                <td>{{ "{:,.0f}".format(s[1]) }} VND</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-md-5 col-xs-12">
+        <form>
+            <div class="form-group">
+                <input type="number" min="2000" name="year" class="" placeholder="Nhap nam muon thong ke...">
+                <input type="submit" value="Thong ke" class="btn btn-danger">
+            </div>
+        </form>
+        <canvas id="productMonthChatId"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    let labels=[],data=[]
+    let labels2=[], data2=[]
+
+
+
+    {% for s in stats %}
+    {% if s[2 ]%}
+        labels.push(' {{s[1]}} ')
+        data.push({{ s[2] }})
+
+        r = Math.random()*255
+        g = Math.random()*255
+        b = Math.random()*255
+
+    {% endif %}
+    {% endfor %}
+
+    {% for s in month_stats %}
+
+        labels2.push( {{s[0]}})
+        data2.push({{ s[1] }})
+
+    {% endfor %}
+
+    window.onload = function() {
+        const ctx = document.getElementById('ProductchartId').getContext('2d')
+        const ctx2 = document.getElementById('productMonthChatId').getContext('2d')
+
+        loadChart(ctx, labels, data, 'bar')
+        loadChart(ctx2, labels2, data2, 'line')
+        }
+
+    function loadChart (ctx, labels, data, type)    {
+    const myChart = new Chart(ctx, {
+    type: type,
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Thong ke doanh thu theo san pham',
+        data: data,
+        backgroundColor: ['red', 'green', 'blue', 'grey'],
+
+
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+    }
+</script>
+
+{% endblock %}

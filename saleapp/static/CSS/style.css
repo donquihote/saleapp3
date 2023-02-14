@@ -1,0 +1,31 @@
+* {
+font-family: Tahoma;
+}
+
+h1 {
+color: blue;
+text-align:center
+}
+
+table.products {
+border-collapse : collapse;
+width: 100%
+}
+div.container {
+width: 80%;
+margin: 1px auto;
+}
+
+.flex {
+display : flex
+}
+
+.flex > div {
+margin: 0px 10px}
+
+div.chinh {
+width 24%
+}
+
+div.chinh > img {
+width: 100%}

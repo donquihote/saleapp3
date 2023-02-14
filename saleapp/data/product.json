@@ -1,0 +1,26 @@
+[{
+  "id": 1,
+  "name": "thước kẹp điện tử",
+  "description": "Kyyosu, 150mm, 0.01mm",
+  "price": 3000000,
+  "image": "https://phukientana.com/wp-content/uploads/2018/01/thuoc.jpg",
+  "category": 1
+
+}, {
+  "id": 2,
+  "name": "thước thép",
+  "description": "Kyyosu, 800mm, 0.1mm",
+  "price": 1000000,
+  "image": "https://phukientana.com/wp-content/uploads/2018/01/thuoc.jpg",
+  "category": 2
+
+}, {
+  "id": 3,
+  "name": "Panme",
+  "description": "Kyyosu, 50mm, 0.01mm",
+  "price": 4000000,
+  "image": "https://phukientana.com/wp-content/uploads/2018/01/thuoc.jpg",
+  "category": 3
+
+}
+]

@@ -1,0 +1,95 @@
+{% extends 'admin/base.html' %}
+
+{% block body %}
+{% if current_user.is_authenticated %}
+<h1> WELCOME {{ current_user.name }} to ADMINISTRATIONS WEBSITE </h1>
+
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <table class="table">
+            <tr>
+                <td>Ma danh muc</td>
+                <td>Ten danh muc</td>
+                <td>So luong san pham</td>
+            </tr>
+    {% for s in stats %}
+            <tr>
+                <td>{{ s[0] }}</td>
+                <td>{{ s[1] }}</td>
+                <td>{{ s[2] }}</td>
+            </tr>
+    {% endfor %}
+</table>
+    </div>
+    <div class="col-md-6 col-xs-12">
+        <canvas id="myCategoryChart"></canvas>
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    let lables=[],info=[]
+
+
+
+    {% for s in stats %}
+        lables.push(' {{s[1]}} ')
+        info.push({{ s[2] }})
+
+        r = Math.random()*255
+        g = Math.random()*255
+        b = Math.random()*255
+
+
+    {% endfor %}
+
+    window.onload = function() {
+        const ctx = document.getElementById('myCategoryChart').getContext('2d');
+        new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: lables,
+      datasets: [{
+        label: 'Thong ke so san pham theo danh muc',
+        data: info,
+
+
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+    }
+</script>
+
+{% else %}
+<h1 class="text-center text-danger"> DANG NHAP QUAN TRI </h1>
+<form method="post" action="{{ url_for('signin_admin')}}">
+
+    <div class="form-group">
+        <label for="Username">Username</label>
+        <input type="text" class="form-control" id="Username" name="username">
+    </div>
+    <div class="form-group">
+        <label for="pass">Mat Khau</label>
+        <input type="password" class="form-control" id="pass" name="passworld">
+    </div>
+
+
+    <input type="submit" value="Dang Nhập" class="btn btn-danger">
+    <br><br>
+
+</form>
+{% endif %}
+
+{% endblock %}
+
+
+
